@@ -79,7 +79,11 @@ void setup()
   crm = 0;
   ulReqcount = 0;       // Setup globals for Webserver
   ulReconncount = 0;
-  // inital connect
+  // Set static IP or comment out // next 4 lines for router to assign
+  IPAddress ip(192, 168, 1, 190); // Put the static IP addres you want to assign here
+  IPAddress gateway(192, 168, 1, 1); // Put your router gateway here
+  IPAddress subnet(255, 255, 255, 0); 
+  WiFi.config(ip, gateway, subnet);
   WiFi.mode(WIFI_STA);
   WiFiStart();
 
@@ -87,9 +91,7 @@ void setup()
 // End WEB SERVER setup -----------------------------------------------------------------------------------------------------
 void WiFiStart()
 {
-
-  WiFi.begin(ssid, password);
-
+WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
