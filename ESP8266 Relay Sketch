@@ -215,7 +215,7 @@ void Webserver() {   /// complete web server (same for access point) ///////////
     sResponse += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">";
     sResponse += "<strong><h1 align='center'>&nbsp;&nbsp;<i><a style=color:#FF0E0E>ESP Relay</a></i></h1></strong><br><br><br>";
     ///// Drop down menus
-    sResponse += "<FONT SIZE=+2><div style='margin-left:170px;'>";
+    sResponse += "<FONT SIZE=+2><div style='text-align:center'>";
     sResponse += "<form action=\"?sCmd\">";
     //// Effects selection list
     sResponse += "<select name=\"sCmd\" size=\"2\" onchange='this.form.submit();'>";
@@ -228,7 +228,7 @@ void Webserver() {   /// complete web server (same for access point) ///////////
 
     sResponse += "<option value=\"OFF\">Off</option>";
 
-    sResponse += "</select></form><br><br><br></div>";
+    sResponse += "</select></form><br><br><br>";
     //////////////////////////////
     // react on parameters //
     //////////////////////////////
@@ -248,7 +248,7 @@ void Webserver() {   /// complete web server (same for access point) ///////////
       }
     };
 
-    sResponse += "<div style='margin-left:115px;'><a style=color:#FFFDD2 >Relay State:</a><i>&nbsp;";
+    sResponse += "<a style=color:#FFFDD2 >Relay State:</a><i>&nbsp;";
     switch (relayMode) {
       case 0:
         sResponse += "Off";
