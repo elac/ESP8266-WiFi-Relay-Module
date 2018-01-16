@@ -102,29 +102,25 @@ WiFi.begin(ssid, password);
 void loop() {
   Webserver();
   CheckForChange();
-  switch (relayMode) {
-    case 0: {
-        Off();
-      }
-      break;
-    case 1: {
-        On();
-      }
-      break;
-  }
-};
+ };
 ///////////////////////////////////////////////////////////
-
 void CheckForChange() {
   if (crm == 1)
   {
+    switch (relayMode) {
+      case 0: {
+          Off();
+        }
+        break;
+      case 1: {
+          On();
+        }
+        break;
+    }
     crm = 0;
   }
-}
-
-
+};
 ///////////////////////////////////////////////////////////////////////////
-
 void Webserver() {   /// complete web server (same for access point) ////////////////////////////////////////////////////////
   // Check if a client has connected
   WiFiClient client = server.available();
@@ -188,13 +184,13 @@ void Webserver() {   /// complete web server (same for access point) ///////////
     }
   }
 
-  ////////////////////////////////////
+  //////////////////////////////
   // format the html response //
-  ////////////////////////////////////
+  //////////////////////////////
   String sResponse, sHeader;
-  //////////////////////////////////////
+  ///////////////////////////////
   // 404 for non-matching path //
-  /////////////////////////////////////
+  ///////////////////////////////
   if (sPath != "/")
   {
     sResponse = "<html><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL was not found on this server.</p></body></html>";
@@ -206,34 +202,25 @@ void Webserver() {   /// complete web server (same for access point) ///////////
     sHeader += "Connection: close\r\n";
     sHeader += "\r\n";
   }
-  ///////////////////////////////
+  //////////////////////////
   // format the html page //
-  //////////////////////////////
+  //////////////////////////
   else
   {
     ulReqcount++;
     sResponse  = "<html><head><title>ESP8266 Relay</title></head>";
-    sResponse += "<font color=\"#FFFFF0\"><body bgcolor=\"#1F1F1F\">";
+    sResponse += "<body bgcolor=\"#1F1F1F\">";
     sResponse += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">";
-    sResponse += "<strong><h1 align='center'>&nbsp;&nbsp;<i><a style=color:#FF0E0E>ESP Relay</a></i></h1></strong><br><br><br>";
-    ///// Drop down menus
-    sResponse += "<FONT SIZE=+2><div style='text-align:center'>";
+    sResponse += "<strong><h1 align='center'><i><a style=color:#0000CC>ESP Relay</a></i></h1></strong><br><br><br><br>";
+    ///// Buttons
+    sResponse += "<div style='text-align:center'>";
     sResponse += "<form action=\"?sCmd\">";
-    //// Effects selection list
-    sResponse += "<select name=\"sCmd\" size=\"2\" onchange='this.form.submit();'>";
-
-    sResponse += "<option value=\"\" selected>Switch</option>";
-
-
-    sResponse += "<option value=\"FUNCTION1ON\">On</option>";
-
-
-    sResponse += "<option value=\"OFF\">Off</option>";
-
-    sResponse += "</select></form><br><br><br>";
-    //////////////////////////////
+    sResponse += "<button name=\"sCmd\" value=\"FUNCTION1ON\" style=\"color:yellow; background-color:black; font-size:130%; width:80px; margin-right:20px;\" onclick=\'this.form.submit();'>ON</button>";
+    sResponse += "<button name=\"sCmd\" value=\"OFF\" style=\"color:yellow; background-color:black; font-size:130%; width:80px; margin-left:20px;\" onclick=\'this.form.submit();'>OFF</button>";
+    sResponse += "</select></form><br><br><br><br>";
+    /////////////////////////////
     // react on parameters //
-    //////////////////////////////
+    /////////////////////////////
     if (sCmd.length() > 0)
     {
       // write received command to html page
@@ -249,14 +236,13 @@ void Webserver() {   /// complete web server (same for access point) ///////////
         crm = 1;
       }
     };
-
-    sResponse += "<a style=color:#FFFDD2 >Relay State:</a><i>&nbsp;";
+    sResponse += "<font size=+2><a style=color:#FFFDD2 >Relay State:</a><i>&nbsp;";
     switch (relayMode) {
       case 0:
-        sResponse += "Off";
+        sResponse += "<a style=color:#FF0E0E >Off</a>";
         break;
       case 1:
-        sResponse += "On";
+        sResponse += "<a style=color:#00FF00 >On</a>";
         break;
     }
 
@@ -269,16 +255,15 @@ void Webserver() {   /// complete web server (same for access point) ///////////
     sHeader += "Connection: close\r\n";
     sHeader += "\r\n";
   }
-
-  // Send the response to the client
+// Send the response to the client
   client.print(sHeader);
   client.print(sResponse);
-
-  // and stop the client
+// and stop the client
   client.stop();
 };  // End of web server
 ///////////////////////////////////////////////////////////////////////////
 /// END of complete web server /////////////////////////////////////
+///Button functions
 void Off() {
   Serial.write(relOFF, sizeof(relOFF));
 };
@@ -286,4 +271,4 @@ void Off() {
 void On() {
   Serial.write(relON, sizeof(relON));
 };
-///////////////////////////////////////////////////////////////////////////
+///End of sketch/////////////////////////////////////////
