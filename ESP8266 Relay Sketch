@@ -208,12 +208,11 @@ void Webserver() {   /// complete web server (same for access point) ///////////
   else
   {
     ulReqcount++;
-    sResponse  = "<html><head><title>ESP8266 Relay</title></head>";
-    sResponse += "<body bgcolor=\"#1F1F1F\">";
-    sResponse += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">";
-    sResponse += "<strong><h1 align='center'><i><a style=color:#0000CC>ESP Relay</a></i></h1></strong><br><br><br><br>";
+ sResponse  = "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>ESP8266 Relay</title></head>";
+    sResponse += "<body bgcolor=\"#1F1F1F\" >";
+    sResponse += "<div style='text-align:center; height:96%; border:10px groove blue; border-radius: 5px;'>";
+    sResponse += "<strong><h1><i><a style=color:#00CCCC>ESP Relay</a></i></h1></strong><br><br><br><br>";
     ///// Buttons
-    sResponse += "<div style='text-align:center'>";
     sResponse += "<form action=\"?sCmd\">";
     sResponse += "<button name=\"sCmd\" value=\"FUNCTION1ON\" style=\"color:yellow; background-color:black; font-size:130%; width:80px; margin-right:20px;\" onclick=\'this.form.submit();'>ON</button>";
     sResponse += "<button name=\"sCmd\" value=\"OFF\" style=\"color:yellow; background-color:black; font-size:130%; width:80px; margin-left:20px;\" onclick=\'this.form.submit();'>OFF</button>";
@@ -242,11 +241,11 @@ void Webserver() {   /// complete web server (same for access point) ///////////
         sResponse += "<a style=color:#FF0E0E >Off</a>";
         break;
       case 1:
-        sResponse += "<a style=color:#00FF00 >On</a>";
+        sResponse += "<a style=color:#00FF00 >On</a></i>";
         break;
     }
 
-    sResponse += "</i></div></body></html>";
+    sResponse += "</div></body></html>";
     sHeader  = "HTTP/1.1 200 OK\r\n";
     sHeader += "Content-Length: ";
     sHeader += sResponse.length();
